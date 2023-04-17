@@ -1,0 +1,17 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: "bank-transaction-service"
+  datasource:
+    url: "jdbc:postgresql://localhost:5433/bankApi"
+    username: "postgres"
+    password: "pass"
+
+  flyway:
+    baseline-on-migrate: false
+com:
+  currencyapi:
+    url: "https://api.apilayer.com/fixer/latest"
+    token: "MLLK4AxxXrj7Wf1e7D9QARBqAe3RxFmT"
+    national-currency: "GEL"
