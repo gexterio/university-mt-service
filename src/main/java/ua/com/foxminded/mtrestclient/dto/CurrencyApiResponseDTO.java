@@ -1,4 +1,4 @@
-package ua.com.foxminded.mtrestclient.api;
+package ua.com.foxminded.mtrestclient.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CurrencyApiResponse {
+public class CurrencyApiResponseDTO {
     @JsonProperty
     public Boolean success;
     @JsonProperty

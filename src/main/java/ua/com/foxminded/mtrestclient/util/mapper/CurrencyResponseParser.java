@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.com.foxminded.mtrestclient.api.CurrencyApiResponse;
+import ua.com.foxminded.mtrestclient.dto.CurrencyApiResponseDTO;
 import ua.com.foxminded.mtrestclient.dto.CurrencyDTO;
 
 import java.time.Instant;
@@ -23,20 +23,20 @@ public class CurrencyResponseParser {
         this.objectMapper = objectMapper;
     }
 
-    public CurrencyApiResponse mapToCurrencyApiResponse(String body) {
+    public CurrencyApiResponseDTO mapToCurrencyApiResponse(String body) {
 
         try {
-            return objectMapper.readValue(body, CurrencyApiResponse.class);
+            return objectMapper.readValue(body, CurrencyApiResponseDTO.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
 
     public List<CurrencyDTO> mapToCurrencyList(String body) {
-        CurrencyApiResponse currencyApiResponse = mapToCurrencyApiResponse(body);
+        CurrencyApiResponseDTO currencyApiResponseDTO = mapToCurrencyApiResponse(body);
         List<CurrencyDTO> currencyList = new ArrayList<>();
-        currencyApiResponse.getRates().forEach((code, value) -> currencyList.add(CurrencyDTO.builder().code(code).value(value).build()));
-        currencyList.forEach(dto -> dto.setLastUpdated(ZonedDateTime.ofInstant(Instant.ofEpochMilli(currencyApiResponse.getTimestamp()), ZoneId.systemDefault())));
+        currencyApiResponseDTO.getRates().forEach((code, value) -> currencyList.add(CurrencyDTO.builder().code(code).value(value).build()));
+        currencyList.forEach(dto -> dto.setLastUpdated(ZonedDateTime.ofInstant(Instant.ofEpochMilli(currencyApiResponseDTO.getTimestamp()), ZoneId.systemDefault())));
         return currencyList;
     }
 
