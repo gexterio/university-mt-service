@@ -2,13 +2,14 @@ package ua.com.foxminded.mtrestclient.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.mtrestclient.dto.TransactionDTO;
 import ua.com.foxminded.mtrestclient.repository.TransactionRepository;
 import ua.com.foxminded.mtrestclient.util.converter.CurrencyConverter;
 import ua.com.foxminded.mtrestclient.util.mapper.TransactionMapper;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -29,13 +30,14 @@ public class TransactionService {
         this.converter = converter;
     }
 
-    public Page<TransactionDTO> getAllTransactionsForCustomer(Long customerId, Pageable pageable) {
+    public List<TransactionDTO> getAllTransactionsForCustomer(Long customerId) {
         Double gelCurrency = currencyService.findByCode(nationalCurrency).getValue();
-        Page<TransactionDTO> transactionsPage = repository.findAllByCustomerId(customerId, pageable)
-                .map(mapper::toDto);
-        for (TransactionDTO dto : transactionsPage) {
-            dto.setUsdCount(converter.convertCurrencyToUSD(dto.getCount(), gelCurrency));
-        }
-        return transactionsPage;
+        return repository.findAllByCustomerId(customerId).stream()
+                .map(entity -> {
+                    TransactionDTO dto = mapper.toDto(entity);
+                    dto.setUsdCount(converter.convertCurrencyToUSD(dto.getCount(), gelCurrency));
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 }

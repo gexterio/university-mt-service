@@ -32,11 +32,10 @@ public class CurrencyResponseParser {
         }
     }
 
-    public List<CurrencyDTO> mapToCurrencyList(String body) {
-        CurrencyApiResponseDTO currencyApiResponseDTO = mapToCurrencyApiResponse(body);
+    public List<CurrencyDTO> mapToCurrencyList(CurrencyApiResponseDTO currencyApiResponseDTO) {
         List<CurrencyDTO> currencyList = new ArrayList<>();
         currencyApiResponseDTO.getRates().forEach((code, value) -> currencyList.add(CurrencyDTO.builder().code(code).value(value).build()));
-        currencyList.forEach(dto -> dto.setLastUpdated(ZonedDateTime.ofInstant(Instant.ofEpochMilli(currencyApiResponseDTO.getTimestamp()), ZoneId.systemDefault())));
+        currencyList.forEach(dto -> dto.setLastUpdated(ZonedDateTime.ofInstant(Instant.ofEpochMilli(currencyApiResponseDTO.getTimestamp()*1000), ZoneId.systemDefault())));
         return currencyList;
     }
 
