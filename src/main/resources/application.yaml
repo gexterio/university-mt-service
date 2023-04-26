@@ -12,6 +12,6 @@ spring:
     baseline-on-migrate: false
 com:
   currencyapi:
-    url: "https://api.apilayer.com/fixer/latest"
+    url: "https://api.apilayer.com/fixer/latest?base=USD"
     token: "MLLK4AxxXrj7Wf1e7D9QARBqAe3RxFmT"
     national-currency: "GEL"

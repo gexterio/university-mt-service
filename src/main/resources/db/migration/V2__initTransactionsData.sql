@@ -1,0 +1,20 @@
+insert into transactions
+    (id, count, currency_name, customer_id)
+values (default, 122.3200, 'GEL', 1),
+       (default, 462.2600, 'GEL', 2),
+       (default, 604.6500, 'GEL', 3),
+       (default, 99.3200, 'GEL', 4),
+       (default, 234.9400, 'GEL', 5),
+       (default, 220.4800, 'GEL', 6),
+       (default, 221.3028, 'GEL', 7),
+       (default, 453.1311, 'GEL', 8),
+       (default, 643.0458, 'GEL', 9),
+       (default, 354.3029, 'GEL', 10),
+       (default, 103.1230, 'GEL', 1),
+       (default, 165.5920, 'GEL', 2),
+       (default, 948.9392, 'GEL', 3),
+       (default, 752.3846, 'GEL', 4),
+       (default, 588.3920, 'GEL', 4),
+       (default, 398.2023, 'GEL', 4),
+       (default, 654.2342, 'GEL', 5),
+       (default, 22.0222, 'GEL', 1);
