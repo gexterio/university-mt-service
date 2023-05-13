@@ -1,0 +1,7 @@
+FROM amazoncorretto:11
+LABEL maintainer="gexterio@gmail.com"
+WORKDIR /app
+COPY target/mtrestclient-0.0.1-SNAPSHOT.jar mtrestclient.jar
+ENTRYPOINT java -jar mtrestclient.jar
+EXPOSE 8081
+VOLUME /mtrest/data
